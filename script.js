@@ -10,8 +10,7 @@ var responseButtonB = document.querySelector("#response1");
 var responseButtonC = document.querySelector("#response2");
 var responseButtonD = document.querySelector("#response3");
 
-//Set amount of time in quiz
-var quizTime = 10;
+var quizTime = 50;
 
 var questionArray = [
     {
@@ -32,26 +31,26 @@ var questionArray = [
     },
     {
         question: "Arrays in JavaScript can be used to store:",
-        A: "Answer 1",
-        B: "Answer 2",
-        C: "Answer 3",
-        D: "Answer 4",
+        A: "Numbers",
+        B: "Strings",
+        C: "Booleans",
+        D: "All of the above",
         answer: "C"
     },
     {
         question: "String values must be enclused within:",
-        A: "Answer 1",
-        B: "Answer 2",
-        C: "Answer 3",
-        D: "Answer 4",
+        A: "||",
+        B: "{}",
+        C: "[]",
+        D: '"',
         answer: "D"
     },
     {
         question: "A tool used during predevelopment and debugging for printing content the the debugger is:",
-        A: "Answer 1",
-        B: "Answer 2",
-        C: "Answer 3",
-        D: "Answer 4",
+        A: "addEventListener",
+        B: "if/else",
+        C: "console.log",
+        D: "var",
         answer: "C"
     }
 ];
@@ -62,39 +61,49 @@ You will have ${quizTime} seconds to complete the quiz. <br/>
 Every wrong answer will subtract 10 seconds from your remaining time.<br/>
 Click the "Start" button when you are ready to begin.`;
 
+//Start button
 startButton.addEventListener("click", function (event) {
     event.stopPropagation();
+    quizTime = 50;
+    questionNumber = 0;
+    correctAnswers = 0;
     startTimer();
-    showQuestion();
+    startQuestion();
     startButton.setAttribute("style", "display: none");
 });
 
+//Timer
 function startTimer() {
     var timerInterval = setInterval(function () {
         quizTime--;
         timeArea.textContent = `${quizTime} seconds left!`;
 
-        if (quizTime === 0) {
+        if (quizTime <= 0) {
             clearInterval(timerInterval);
             endQuiz();
         }
     }, 1000);
 }
 
-function showQuestion() {
+//Display questions and answer options
+function startQuestion() {
 
-    if(questionNumber >= questionArray.length) {
+    if (questionNumber >= questionArray.length) {
         responseButtonA.setAttribute("style", "display: none");
         responseButtonB.setAttribute("style", "display: none");
         responseButtonC.setAttribute("style", "display: none");
         responseButtonD.setAttribute("style", "display: none");
+        timeArea.setAttribute("style", "display: none");
         textArea.innerHTML = `Quiz complete. You got ${correctAnswers} out of ${questionArray.length} questions correct!`;
         startButton.setAttribute("style", "display: inline");
         startButton.textContent = "Play Again";
-        questionNumber = 0;
-        correctAnswers = 0;
         return;
+    } else {
+        displayQuestion()
     }
+}
+
+function displayQuestion() {
 
     var question = questionArray[questionNumber].question;
     var ansA = questionArray[questionNumber].A;
@@ -103,7 +112,7 @@ function showQuestion() {
     var ansD = questionArray[questionNumber].D;
 
     textArea.innerHTML = question;
-    
+
     responseButtonA.setAttribute("style", "display: block");
     responseButtonA.textContent = ansA;
     responseButtonA.addEventListener("click", function() {
@@ -129,18 +138,21 @@ function showQuestion() {
     });
 }
 
+//Check if answer is correct and loop to next question
 function checkAnswer(response) {
-    console.log(response);
     if (response === questionArray[questionNumber].answer) {
         correctAnswers++;
-        console.log("correct");
+        questionNumber++;
+        startQuestion();
     } else {
-        console.log("incorrect");
-    }
-    questionNumber++;
-    showQuestion();
+        quizTime -= 10;
+        questionNumber++;
+        startQuestion();
+    };
+    console.log(questionNumber);
 }
 
+//End quiz if timer runs out
 function endQuiz() {
     responseButtonA.setAttribute("style", "display: none");
     responseButtonB.setAttribute("style", "display: none");
@@ -150,6 +162,4 @@ function endQuiz() {
     startButton.setAttribute("style", "display: inline");
     startButton.textContent = "Play Again";
     timeArea.setAttribute("style", "display:none");
-    questionNumber = 0;
-    correctAnswers = 0;
 }
