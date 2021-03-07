@@ -12,4 +12,4 @@ https://travis-springer.github.io/Code_Quiz/
 
 ## Screenshot
 
-![Code Quiz Screenshot](screnshot.png)
+![Code Quiz Screenshot](screenshot.png)
