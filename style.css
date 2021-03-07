@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(white, rgb(29, 148, 216));
+}
+
+header {
+    text-align: center;
+    background: navy;
+    color: white;
+    padding: 25px;
+    font-size: 50px;
+}
+
+button {
+    background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(223, 49, 230, 0.954) 100%);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 30px;
+    text-align: center;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+}
+
+.response-button {
+    display: none;
+    margin: 10px;
+}
+
+.game-area {
+    max-width: 800px;
+    margin:0 auto;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.text-area {
+    padding: 20px;
+}
+
+.button-area {
+    padding: 20px;
+}
+
+.timer-area {
+    padding: 20px;
+    font-style: italic;
+}
